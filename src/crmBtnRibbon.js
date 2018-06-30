@@ -16,5 +16,4 @@ import './crmLoadJs'
 const crmBtnRibbon = {
   newDemoRibbon
 }
-
 window.crmBtnRibbon = crmBtnRibbon

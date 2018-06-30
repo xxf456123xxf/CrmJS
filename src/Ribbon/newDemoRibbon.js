@@ -1,7 +1,7 @@
 import { ent, dialog } from '../common/crm.js'
 class newEntity {
   demo () {
-    var id = ent.id
+    var id = 1
     var tableData2 = [{
       date: '2018-05-02',
       name: '王小虎',

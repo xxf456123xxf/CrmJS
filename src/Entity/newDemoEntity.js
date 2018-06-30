@@ -38,7 +38,7 @@ class newEntity {
     attr('new_productid').addCustomView('可选产品', fetchXml, ['new_name']) // 添加自定义视图
     attr('new_productid').addFilter(this.productCustomFilter) // 产品视图添加filter条件
 
-    attr('new_productid').setByVal(['new_productname', ['name', 'ownerid$empty']], ['new_name', 'ownerid'], request.lookupById) // 产品查找产品名称赋值、ownerid为null时不赋值,会触发change事件
+    attr('new_productid').setByVal(['name', 'ownerid$empty'], ['new_name', 'ownerid'], request.lookupById) // 产品查找产品名称赋值、ownerid为null时不赋值,会触发change事件
 
     var drop = attr('new_type').getOpts()
     drop.optVal([100000000]) // 只显示下拉值100000000
