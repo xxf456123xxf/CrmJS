@@ -4,6 +4,32 @@ import crmFetch from '../crmFetch/main'
 import dialog from './dialog'
 import dataHelper from './dataHelper'
 var oDataEndpointUrl = window.Xrm.Page.context.prependOrgName('/XRMServices/2011/OrganizationData.svc/')
+
+function toQueryPair (key, value) {
+  if (typeof value === 'undefined') {
+    return key
+  }
+  return key + '=' + encodeURIComponent(value === null ? '' : String(value))
+}
+
+function toQueryString (obj) {
+  var ret = []
+  for (var key in obj) {
+    key = encodeURIComponent(key)
+    var values = obj[key]
+    if (Array.isArray(values)) { // 数组
+      var queryValues = []
+      for (var i = 0, len = values.length, value; i < len; i++) {
+        value = values[i]
+        queryValues.push(toQueryPair(key, value))
+      }
+      ret = ret.concat(queryValues)
+    } else { // 字符串
+      ret.push(toQueryPair(key, values))
+    }
+  }
+  return ret.join('&')
+}
 var ajax = function (type, baseurl) {
   // type =  1 异步
   // type = 2  submit
@@ -49,7 +75,7 @@ var ajax = function (type, baseurl) {
       }
       var option = $.extend(optDefault, o)
       var Data = data || {}
-      Data = option.type === 'get' ? $.param(Data) : JSON.stringify(Data)
+      Data = option.type === 'get' ? toQueryString(Data) : JSON.stringify(Data)
       var def = $.Deferred()
       $.ajax({
         type: option.type,
@@ -69,26 +95,34 @@ var ajax = function (type, baseurl) {
           dialog.loadClose()
           req.setsubmit(0)
         }
-        def.resolve(res)
+        var resp = res
+        if (res && res.status === 0) {
+          dialog.error(res.msg)
+          def.reject(null, 200, res.msg)
+          return
+        } else if (res && res.status === 1) {
+          resp = res.data
+        }
+        def.resolve(resp)
       },
-          function (xhr, status, statusText) {
-            if (req.type === 2) {
-              dialog.loadClose()
-              req.setsubmit(0)
-            }
-            if (_.isObject(xhr.responseJSON)) {
-              if (xhr.responseJSON.error) {
-                dialog.msg(xhr.responseJSON.error.message.value)
-              } else if (xhr.responseJSON.errorMessage) {
-                dialog.msg(xhr.responseJSON.errorMessage)
-              } else {
-                dialog.msg(xhr.responseJSON.Message)
-              }
+        function (xhr, status, statusText) {
+          if (req.type === 2) {
+            dialog.loadClose()
+            req.setsubmit(0)
+          }
+          if (_.isObject(xhr.responseJSON)) {
+            if (xhr.responseJSON.error) {
+              dialog.msg(xhr.responseJSON.error.message.value)
+            } else if (xhr.responseJSON.errorMessage) {
+              dialog.msg(xhr.responseJSON.errorMessage)
             } else {
-              dialog.msg(xhr.status + '  ' + xhr.statusText)
+              dialog.msg(xhr.responseJSON.Message)
             }
-            def.reject(xhr, status, statusText)
-          })
+          } else {
+            dialog.msg(xhr.status + '  ' + xhr.statusText)
+          }
+          def.reject(xhr, status, statusText)
+        })
       return def
     },
     fetchExec: function () {

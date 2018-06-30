@@ -3,18 +3,21 @@
  * @module crmGridList
  */
 export class crmGridList {
-    /**
-     *crmGridList 初始化对象
-     * @class crmGridList
-     * @constructor
-    */
+  /**
+   *crmGridList 初始化对象
+   * @class crmGridList
+   * @constructor
+   */
   constructor (Sys, Xrm, name) {
     this.Xrm = Xrm
     this.name = name
     var Control = this.Xrm.Page.getControl(name)
-    var TurboGrid = Control.getGrid()
+    var TurboGrid = {
+
+    }
+    if (typeof Control.getGrid === 'function') { TurboGrid = Control.getGrid() }
     if (TurboGrid['$3_1']) {
-           // 2016处理方式和d365
+      // 2016处理方式和d365
       this.contname = TurboGrid['$3_1']
     } else {
       this.contname = Sys.Application['_components'][name]
@@ -23,56 +26,56 @@ export class crmGridList {
       this.logWarn(`not crmGridList name : ${this.contname}`)
     }
   }
-    /**
-     * list
-     * @property list
-     * @type array
-     */
+  /**
+   * list
+   * @property list
+   * @type array
+   */
   get list () {
     if (!this.contname) {
       return []
     }
     return this.contname.get_allRecords()
   }
-    /**
-     * listIds
-     * @property listIds
-     * @type array
-     */
+  /**
+   * listIds
+   * @property listIds
+   * @type array
+   */
   get listIds () {
     if (!this.contname) {
       return []
     }
     return this.contname.get_allRecordIds()
   }
-    /**
-     * count
-     * @property count
-     * @type int
-     */
+  /**
+   * count
+   * @property count
+   * @type int
+   */
   get count () {
     if (!this.contname) {
       return 0
     }
     return this.contname.get_allRecords().length
   }
-    /**
-     * getSelectIds
-     * @property getSelectIds
-     * @type array
-     */
+  /**
+   * getSelectIds
+   * @property getSelectIds
+   * @type array
+   */
   getSelectIds () {
     if (!this.contname) {
       return []
     }
     return this.contname.get_selectedIds()
   }
-   /**
-    * 子网格搜索筛选
-    * @method addFilter
-    * @param  {[type]}  handle     [description]
-    * @param  {[type]}  entityType [description]
-    */
+  /**
+   * 子网格搜索筛选
+   * @method addFilter
+   * @param  {[type]}  handle     [description]
+   * @param  {[type]}  entityType [description]
+   */
   addFilter (handle, entityType) {
     var TurboGrid = this.contname
     var CustomerHandler = null
@@ -89,11 +92,11 @@ export class crmGridList {
       }
     }
   }
-    /**
-     * 自定义子网格
-     * @method setParameter
-     * @param  {[type]}     fetchxml [description]
-     */
+  /**
+   * 自定义子网格
+   * @method setParameter
+   * @param  {[type]}     fetchxml [description]
+   */
   setParameter (fetchxml) {
     var TurboGrid = this.contname
     if (typeof TurboGrid.SetParameter === 'function') {

@@ -80,10 +80,11 @@ const layDialog = {
     })
     return def
   },
-  prompt: function (msg, formType) {
+  prompt: function (msg, formType, value) {
     var def = $.Deferred()
     layer.prompt({
       title: msg,
+      value: value || '',
       formType: formType || 0 // prompt风格，支持0-2
     }, function (pass, index) {
       dialog.close(index)
@@ -113,16 +114,16 @@ const layDialog = {
       content: obj.url,
       success: function (layero, index) {
         if (vueConfig) {
-          var iframeWin = window[layero.find('iframe')[0]['name']]
+          var iframeWin = winTop[layero.find('iframe')[0]['name']]
 
           if (typeof iframeWin.vueLoad === 'function') {
             iframeWin.vueLoad(vueConfig)
-            $('#crmContentPanel').hide()
+            $('#crmContentPanel', winTop.document).hide()
           }
         }
       },
       end: function () {
-        $('#crmContentPanel:hidden').show()
+        $('#crmContentPanel:hidden', winTop.document).show()
       }
     }
     data = $.extend(data, obj)

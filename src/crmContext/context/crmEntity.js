@@ -310,7 +310,7 @@ export class crmAttr {
     return this
   }
   error (message) {
-    window.console && typeof window.console.error === 'function' && window.console.error(message)
+    window.console && typeof window.console.warn === 'function' && window.console.warn(message)
   }
     /**
      * 保存实体

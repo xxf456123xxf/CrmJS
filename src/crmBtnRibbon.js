@@ -11,6 +11,10 @@
 // const newServicefeeRibbon = require('./Ribbon/newServicefeeRibbon.js').default;
 // const newAfterserviceRibbon = require('./Ribbon/newAfterserviceRibbon.js').default;
 // const newSalesordernsRibbon = require('./Ribbon/newSalesordernsRibbon.js').default;
+const newDemoRibbon = require('./Ribbon/newDemoRibbon.js').default
 import './crmLoadJs'
-const crmBtnRibbon = {}
+const crmBtnRibbon = {
+  newDemoRibbon
+}
+
 window.crmBtnRibbon = crmBtnRibbon

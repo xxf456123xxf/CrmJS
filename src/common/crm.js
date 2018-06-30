@@ -25,5 +25,6 @@ window.ajax = ajax
 window.submit = submit
 window.reqSync = reqSync
 window.isRole = isRole
+window.crm = crm
 export { ent, attr, process, grid, _, request, submit, reqSync, $, crmWindow,
  crmDocument, isRole, dialog}
