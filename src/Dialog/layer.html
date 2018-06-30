@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+
+	<script type="text/javascript">
+		 function modal(obj, vueConfig) {
+                if (vueConfig) {
+                    obj.url = 'http://127.0.0.1:8080/index.html?v=' + new Date()
+                }
+                var data = {
+                    type: 2,
+                    title: obj.title,
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['100%', '100%'],
+                    content: obj.url,
+
+                    success: function (layero, index) {
+                    	
+                        if (vueConfig) {
+                            var body = layer.getChildFrame('body', index);
+                            var iframeWin = window[layero.find('iframe')[0]['name']];
+                           
+                            if (typeof iframeWin.vueLoad === 'function') {
+                                iframeWin.vueLoad(vueConfig)
+                            }
+                        }
+                    }
+                };
+                data = $.extend(data, obj);
+                return layer.open(data);
+            }
+    var index = modal({ title: 'demo', area: ['100%', '100%'], offset: ['0px', '0px'] }, {
+      url:'demo.html',data:{
+  JsText:'JsText',
+            },methods:{
+
+            }}) ;
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

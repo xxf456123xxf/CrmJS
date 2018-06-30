@@ -1,0 +1,20 @@
+{
+  "name": "crmBower",
+  "description": "crm",
+  "main": "index.js",
+  "authors": [
+    "xfxing"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "crm"
+  ],
+  "moduleType": [
+    "es6",
+    "globals"
+  ],
+  "homepage": "",
+  "devDependencies": {
+    "layer": "^3.0.1"
+  }
+}

@@ -1,0 +1,11 @@
+/bower_components/
+/node_modules/
+/dist/
+/obj/
+/bin/
+/Properties/
+/doc/
+ApplicationInsights.config
+*.csproj
+*.csproj.user
+*..csproj.vspscc
