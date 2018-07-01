@@ -497,30 +497,29 @@ export class crmAttr {
      * @method setMax
      * @param  {int} value 值
      */
-  setMax (value) {
-    if (this.attrname) {
-      var attribute = this.attrname['_attribute']
-      var setmax = attribute['set_max']
-      typeof setmax === 'function' &&
-                (setmax.apply(attribute, [value]))
-    }
-    return this
-  }
+  // setMax (value) {
+  //   if (this.attrname) {
+  //     var attribute = this.attrname['_attribute']
+  //     var setmax = attribute['set_max']
+  //     typeof setmax === 'function' &&
+  //               (setmax.apply(attribute, [value]))
+  //   }
+  //   return this
+  // }
     /**
      * 数字字段设置最小值
      * @method setMin
      * @param  {int} value 值
      */
-  setMin (value) {
-    if (this.attrname) {
-      var attribute = this.attrname
-            .ttribute
-      var setmin = attribute.set_min
-      typeof setmin === 'function' &&
-                (setmin.apply(attribute, [value]))
-    }
-    return this
-  }
+  // setMin (value) {
+  //   if (this.attrname) {
+  //     var attribute = this.attrname['_attribute']
+  //     var setmin = attribute.set_min
+  //     typeof setmin === 'function' &&
+  //               (setmin.apply(attribute, [value]))
+  //   }
+  //   return this
+  // }
     /**
      * 获取crmEntityOption对象
      * @method getOpts

@@ -1,3 +1,4 @@
+//https://github.com/zhh77/smartdoc
 module.exports = {
     //扫描的文件路径
     paths: ['src/crmContext/'],

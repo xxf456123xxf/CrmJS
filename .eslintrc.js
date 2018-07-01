@@ -16,7 +16,6 @@ module.exports = {
     'html'
   ],
   globals:{
-  "_":true
   },
 
   // add your custom rules here
@@ -24,7 +23,6 @@ module.exports = {
     // allow paren-less arrow functions
     'arrow-parens': 0,
     'new-cap':0,
-    'no-extend-native': ["error", { "exceptions": ["Date"] }],
     // allow async-await
     'generator-star-spacing': 0,
     'no-alert':0,

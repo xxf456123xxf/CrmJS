@@ -1,3 +1,4 @@
+/* eslint no-extend-native: ["error", { "exceptions": ["Date","Array"] }] */
 // crm实体窗体加载js  加载的js可以在web资源  也可以是外部文件
 // var main = window.masterWindow(); //获取主窗体
 // var loadJs = function (url, id) {
@@ -33,4 +34,13 @@ Date.prototype.addDays = function (days) {
   var milliseconds = this.getTime() + days * 24 * 60 * 60 * 1000
   date.setTime(milliseconds)
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+}
+Array.prototype.insert = function (index, item) {
+  this.splice(index, 0, item)
+}
+Array.prototype.remove = function (val) {
+  var index = this.indexOf(val)
+  if (index > -1) {
+    this.splice(index, 1)
+  }
 }
